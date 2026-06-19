@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Creator Dashboard</title>
+                
+                    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+                        
+                            <style>
+                                    :root {
+                                                    --primary-color: #2c3e50;
+                                                                --secondary-color: #18bc9c;
+                                                                            --bg-color: #f4f6f9;
+                                                                                        --text-color: #333;
+                                                                                                    --sidebar-width: 240px;
+                                    }
+
+                                            * {
+                                                            margin: 0;
+                                                                        padding: 0;
+                                                                                    box-sizing: border-box;
+                                                                                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                            }
+
+                                                    body {
+                                                                    display: flex;
+                                                                                background-color: var(--bg-color);
+                                                                                            color: var(--text-color);
+                                                                                                        min-height: 100vh;
+                                                    }
+
+                                                            /* Sidebar Navigation */
+                                                                    .sidebar {
+                                                                                    width: var(--sidebar-width);
+                                                                                                background-color: var(--primary-color);
+                                                                                                            color: white;
+                                                                                                                        padding: 20px;
+                                                                                                                                    display: flex;
+                                                                                                                                                flex-direction: column;
+                                                                                                                                                            gap: 15px;
+                                                                    }
+
+                                                                            .sidebar h2 {
+                                                                                            text-align: center;
+                                                                                                        font-size: 1.3rem;
+                                                                                                                    margin-bottom: 20px;
+                                                                                                                                color: var(--secondary-color);
+                                                                            }
+
+                                                                                    .sidebar a {
+                                                                                                    color: #ecf0f1;
+                                                                                                                text-decoration: none;
+                                                                                                                            padding: 12px 15px;
+                                                                                                                                        border-radius: 5px;
+                                                                                                                                                    transition: background 0.3s;
+                                                                                                                                                                font-weight: 500;
+                                                                                    }
+
+                                                                                            .sidebar a:hover, .sidebar a.active {
+                                                                                                            background-color: var(--secondary-color);
+                                                                                            }
+
+                                                                                                    /* Main Content Area */
+                                                                                                            .main-content {
+                                                                                                                            flex-grow: 1;
+                                                                                                                                        padding: 30px;
+                                                                                                            }
+
+                                                                                                                    .header {
+                                                                                                                                    margin-bottom: 25px;
+                                                                                                                                                border-bottom: 2px solid #ddd;
+                                                                                                                                                            padding-bottom: 10px;
+                                                                                                                    }
+
+                                                                                                                            .header h1 {
+                                                                                                                                            font-size: 1.8rem;
+                                                                                                                                                        color: var(--primary-color);
+                                                                                                                            }
+
+                                                                                                                                    /* Editor Form */
+                                                                                                                                            .editor-container {
+                                                                                                                                                            background: white;
+                                                                                                                                                                        padding: 25px;
+                                                                                                                                                                                    border-radius: 8px;
+                                                                                                                                                                                                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                                                                                                                                            }
+
+                                                                                                                                                    .form-group {
+                                                                                                                                                                    margin-bottom: 20px;
+                                                                                                                                                    }
+
+                                                                                                                                                            .form-group label {
+                                                                                                                                                                            display: block;
+                                                                                                                                                                                        margin-bottom: 8px;
+                                                                                                                                                                                                    font-weight: 600;
+                                                                                                                                                                                                                color: #444;
+                                                                                                                                                            }
+
+                                                                                                                                                                    .form-group input[type="text"], 
+                                                                                                                                                                            .form-group select, 
+                                                                                                                                                                                    .form-group textarea {
+                                                                                                                                                                                                    width: 100%;
+                                                                                                                                                                                                                padding: 12px;
+                                                                                                                                                                                                                            border: 1px solid #ccc;
+                                                                                                                                                                                                                                        border-radius: 4px;
+                                                                                                                                                                                                                                                    font-size: 1rem;
+                                                                                                                                                                                                                                                                outline: none;
+                                                                                                                                                                                    }
+
+                                                                                                                                                                                            .form-group textarea {
+                                                                                                                                                                                                            height: 250px;
+                                                                                                                                                                                                                        resize: vertical;
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                                    .publish-btn {
+                                                                                                                                                                                                                    background-color: var(--secondary-color);
+                                                                                                                                                                                                                                color: white;
+                                                                                                                                                                                                                                            border: none;
+                                                                                                                                                                                                                                                        padding: 14px 30px;
+                                                                                                                                                                                                                                                                    font-size: 1rem;
+                                                                                                                                                                                                                                                                                font-weight: bold;
+                                                                                                                                                                                                                                                                                            border-radius: 4px;
+                                                                                                                                                                                                                                                                                                        cursor: pointer;
+                                                                                                                                                                                                                                                                                                                    width: 100%;
+                                                                                                                                                                                                                                                                                                                                transition: background 0.3s;
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                            .publish-btn:hover {
+                                                                                                                                                                                                                            background-color: #128f76;
+                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                    /* Mobile responsiveness for Telegram interface */
+                                                                                                                                                                                                                            @media (max-width: 600px) {
+                                                                                                                                                                                                                                            body {
+                                                                                                                                                                                                                                                                flex-direction: column;
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                        .sidebar {
+                                                                                                                                                                                                                                                                            width: 100%;
+                                                                                                                                                                                                                                                                                            height: auto;
+                                                                                                                                                                                                                                                                                                            padding: 15px;
+                                                                                                                                                                                                                                                                                                                            gap: 10px;
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                    .sidebar h2 {
+                                                                                                                                                                                                                                                                                        margin-bottom: 5px;
+                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                .main-content {
+                                                                                                                                                                                                                                                                                                    padding: 15px;
+                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                </style>
+                                                                                                                                                                                                                                </head>
+                                                                                                                                                                                                                                <body>
+
+                                                                                                                                                                                                                                    <div class="sidebar">
+                                                                                                                                                                                                                                            <h2>Creator Panel</h2>
+                                                                                                                                                                                                                                                    <a href="#" class="active">📝 New Article</a>
+                                                                                                                                                                                                                                                            <a href="#">📊 Analytics</a>
+                                                                                                                                                                                                                                                                    <a href="#">⚙️ Settings</a>
+                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                            <div class="main-content">
+                                                                                                                                                                                                                                                                                    <div class="header">
+                                                                                                                                                                                                                                                                                                <h1>Create New Post</h1>
+                                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                                                <div class="editor-container">
+                                                                                                                                                                                                                                                                                                                            <form id="postForm">
+                                                                                                                                                                                                                                                                                                                                            <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                <label for="postTitle">Article Title</label>
+                                                                                                                                                                                                                                                                                                                                                                                    <input type="text" id="postTitle" placeholder="Enter article title..." required>
+                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <label for="postCategory">Category</label>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <select id="postCategory">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option value="microbiology">Microbiology & Health</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="lifestyle">Lifestyle</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option value="news">News & Gist</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </select>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <label for="postContent">Content</label>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <textarea id="postContent" placeholder="Write your content details here..." required></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <button type="submit" class="publish-btn">Publish Article</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </form>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <script src="script.js"></script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </body>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                    }
+                                                                                                                                                                                            }
+                                                                                                                                                                                    }
+                                                                                                                                                            }
+                                                                                                                                                    }
+                                                                                                                                            }
+                                                                                                                            }
+                                                                                                                    }
+                                                                                                            }
+                                                                                            }
+                                                                                    }
+                                                                            }
+                                                                    }
+                                                    }
+                                            }
+                                    }

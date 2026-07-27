@@ -1,0 +1,76 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        ink: {
+          50: '#f6f7f9',
+          100: '#eceef2',
+          200: '#d4d9e2',
+          300: '#aab3c4',
+          400: '#7b879c',
+          500: '#596275',
+          600: '#454c5d',
+          700: '#373d4a',
+          800: '#2a2f39',
+          900: '#1e222a',
+          950: '#14171c',
+        },
+        accent: {
+          50: '#fff8ed',
+          100: '#ffeed4',
+          200: '#ffd9a8',
+          300: '#ffbd70',
+          400: '#ff9838',
+          500: '#ff7a12',
+          600: '#f05e06',
+          700: '#c74608',
+          800: '#9e3810',
+          900: '#7f3010',
+          950: '#451706',
+        },
+        sage: {
+          50: '#f3f7f4',
+          100: '#e3ece5',
+          200: '#c7d9cc',
+          300: '#9fbba7',
+          400: '#719a80',
+          500: '#527e63',
+          600: '#3f654e',
+          700: '#345140',
+          800: '#2c4134',
+          900: '#25372c',
+          950: '#131e17',
+        },
+      },
+      fontFamily: {
+        sans: ['"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+      },
+      maxWidth: {
+        prose: '68ch',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.4s ease-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'pop': 'pop 0.3s ease-out',
+        'heart-burst': 'heartBurst 0.6s ease-out',
+      },
+      keyframes: {
+        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+        slideUp: { '0%': { opacity: '0', transform: 'translateY(12px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        pop: { '0%': { transform: 'scale(0.9)' }, '60%': { transform: 'scale(1.05)' }, '100%': { transform: 'scale(1)' } },
+        heartBurst: {
+          '0%': { transform: 'scale(1)' },
+          '30%': { transform: 'scale(1.35)' },
+          '60%': { transform: 'scale(0.9)' },
+          '100%': { transform: 'scale(1)' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
